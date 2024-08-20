@@ -4,6 +4,7 @@ type Product = {
   price: number;
   sale: boolean;
   image?: string;
+  amountOrdered?: number;
 };
 
 export default Product;

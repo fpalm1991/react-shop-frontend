@@ -4,9 +4,10 @@ import { useState } from "react";
 
 interface ProductProps {
   product: ProductType;
+  addProductToShoppingCart: (p: ProductType, a: number) => void;
 }
 
-function Product({ product }: ProductProps) {
+function Product({ product, addProductToShoppingCart }: ProductProps) {
   const [amount, setAmount] = useState(1);
 
   return (
@@ -20,7 +21,7 @@ function Product({ product }: ProductProps) {
 
       <div className="product__buttons">
         <button className="product__button">Discover</button>
-        <div>
+        <div className="product__input">
           <div className="product__add">
             <div
               className="product__button__add"
@@ -55,6 +56,7 @@ function Product({ product }: ProductProps) {
             className="product__button product__button--cart"
             onClick={() => {
               setAmount(1);
+              addProductToShoppingCart(product, amount);
             }}
           >
             <img src="/icons/shopping-cart.svg" alt="Add to cart" />

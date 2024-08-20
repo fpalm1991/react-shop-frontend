@@ -72,6 +72,12 @@
   background-color: rgb(0, 0, 164);
 }
 
+.product__input {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
 .product__add {
   margin-right: 1rem;
   display: flex;
@@ -100,11 +106,14 @@
 .product__amount {
   background-color: transparent;
   border: none;
-  color: #fff;
   width: 2.8rem;
   text-align: center;
   font-size: 1.1rem;
   margin: auto 8px;
+}
+
+.product--sale .product__amount {
+  color: #fff;
 }
 
 .product__amount::-webkit-outer-spin-button,
