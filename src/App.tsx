@@ -86,14 +86,14 @@ function App() {
   ));
 
   return (
-    <div className="container">
-      <header>
+    <>
+      <header className="header">
         <h2 className="heading heading--h2">Discover Our Products</h2>
         <ShoppingCart shoppingCart={shoppingCart} />
       </header>
 
       <div className="products">{productsElement}</div>
-    </div>
+    </>
   );
 }
 

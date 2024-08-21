@@ -9,4 +9,10 @@
 body {
   font-family: Helvetica, sans-serif;
   line-height: 1.6;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
 }
