@@ -1,0 +1,27 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 1rem;
+
+  @media (min-width: 768px) {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 6rem;
+  }
+}
+
+.section {
+  &__products {
+    .heading {
+      margin-bottom: 2.2rem;
+    }
+  }
+}

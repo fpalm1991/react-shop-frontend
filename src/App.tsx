@@ -1,8 +1,6 @@
-import ProductType from "./types/Product";
-import Product from "./components/Product";
 import ShoppingCart from "./components/ShoppingCart";
-import "./style/typography.css";
-import "./style/layout.css";
+import Product from "./components/Product";
+import ProductType from "./types/Product";
 import { useState } from "react";
 
 const products: ProductType[] = [
@@ -46,53 +44,70 @@ const products: ProductType[] = [
 function App() {
   const [shoppingCart, setShoppingCart] = useState<ProductType[]>([]);
 
-  const handleAddToShoppingCart = (
-    product: ProductType,
-    amountOrdered: number
-  ) => {
-    if (shoppingCart.some((p) => p.id === product.id)) {
-      const foundProduct = shoppingCart.find((p) => p.id === product.id);
+  const handleProductToCart = (product: ProductType, amount: number) => {
+    setShoppingCart((prevCart) => {
+      // Check if the product is already in the cart
+      const foundProduct = prevCart.find((p) => p.id === product.id);
 
       if (foundProduct) {
-        // Removing old entry from shopping cart
-        setShoppingCart((prevProducts) => {
-          const filteredProducts = prevProducts.filter(
-            (p) => p.id !== foundProduct.id
-          );
-
-          // Creating new product based on found product
-          const updatedProduct = {
-            ...foundProduct,
-            amountOrdered: foundProduct.amountOrdered
-              ? foundProduct.amountOrdered + amountOrdered
-              : amountOrdered,
-          };
-
-          return [...filteredProducts, updatedProduct];
-        });
+        // Update the product quantity in the cart
+        return prevCart.map((p) =>
+          p.id === product.id
+            ? { ...p, amountOrdered: (p.amountOrdered || 0) + amount }
+            : p
+        );
+      } else {
+        // Add new product to the cart
+        return [...prevCart, { ...product, amountOrdered: amount }];
       }
-    } else {
-      const productOrdered = { ...product, amountOrdered: amountOrdered };
-      setShoppingCart([...shoppingCart, productOrdered]);
-    }
+    });
   };
 
   const productsElement: JSX.Element[] = products.map((product) => (
     <Product
       product={product}
       key={product.id}
-      addProductToShoppingCart={handleAddToShoppingCart}
+      addToCart={handleProductToCart}
     />
+  ));
+
+  const shoppingCartElement: JSX.Element[] = shoppingCart.map((product) => (
+    <li key={product.id}>
+      {product.name} ({product.amountOrdered})
+    </li>
   ));
 
   return (
     <>
-      <header className="header">
-        <h2 className="heading heading--h2">Discover Our Products</h2>
-        <ShoppingCart shoppingCart={shoppingCart} />
-      </header>
+      <div className="container">
+        <header className="header">
+          <div className="header__logo">
+            <img src="/assets/icons/coffee.svg" alt="Logo" />
+          </div>
 
-      <div className="products">{productsElement}</div>
+          <div className="header__search">
+            <input type="text" />
+          </div>
+
+          <div className="header__cart header__cart--active">
+            <img src="/assets/icons/shopping-cart.svg" alt="Shopping Cart" />
+          </div>
+        </header>
+
+        <main className="text text--standard">
+          <ShoppingCart />
+
+          <ul>{shoppingCartElement}</ul>
+
+          <section className="section__products">
+            <h1 className="heading heading--h1">Discover Our Products</h1>
+
+            <div className="products">{productsElement}</div>
+          </section>
+        </main>
+
+        <footer></footer>
+      </div>
     </>
   );
 }

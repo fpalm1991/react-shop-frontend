@@ -1,69 +1,64 @@
-import ProductType from "../types/Product";
-import "../style/product.css";
 import { useState } from "react";
+import ProductType from "../types/Product";
 
 interface ProductProps {
   product: ProductType;
-  addProductToShoppingCart: (p: ProductType, a: number) => void;
+  addToCart: (product: ProductType, amount: number) => void;
 }
 
-function Product({ product, addProductToShoppingCart }: ProductProps) {
-  const [amount, setAmount] = useState(1);
+function Product({ product, addToCart }: ProductProps) {
+  const [productAmount, setProductAmount] = useState(1);
 
   return (
-    <article className={`product ${product.sale ? "product--sale" : ""}`}>
-      <h3 className="product__heading">{product.name}</h3>
-      <img className="product__image" src={product.image} alt={product.name} />
+    <>
+      <article className="product">
+        <div className="product__image">
+          <img
+            className="product__image"
+            src={product.image}
+            alt="Product Name"
+          />
+        </div>
 
-      <div className="product__info">
-        <p className="product__info__price">CHF {product.price}</p>
-      </div>
+        <h3 className="product__heading">{product.name}</h3>
 
-      <div className="product__buttons">
-        <button className="product__button">Discover</button>
-        <div className="product__input">
-          <div className="product__add">
-            <div
-              className="product__button__add"
-              onClick={() => {
-                if (amount > 1) {
-                  setAmount(amount - 1);
-                } else {
-                  setAmount(1);
-                }
-              }}
-            >
-              -
-            </div>
-            <input
-              className="product__amount"
-              type="number"
-              value={amount}
-              onChange={(e) =>
-                Number(e.target.value) > 1
-                  ? setAmount(Number(e.target.value))
-                  : setAmount(1)
-              }
-            />
-            <div
-              className="product__button__add"
-              onClick={() => setAmount(amount + 1)}
-            >
-              +
-            </div>
-          </div>
-          <button
-            className="product__button product__button--cart"
+        <div className="product__info">{product.price}</div>
+
+        <div className="product__amount">
+          <div
+            className="product__amount__sub"
             onClick={() => {
-              setAmount(1);
-              addProductToShoppingCart(product, amount);
+              setProductAmount((currAmount) =>
+                currAmount < 1 ? 0 : currAmount - 1
+              );
             }}
           >
-            <img src="/icons/shopping-cart.svg" alt="Add to cart" />
-          </button>
+            <img src="/assets/icons/minus-circle.svg" alt="Reduce Amount" />
+          </div>
+
+          <div className="product__ammount__value">{productAmount}</div>
+
+          <div
+            className="product__amount__add"
+            onClick={() => {
+              setProductAmount((currAmount) => currAmount + 1);
+            }}
+          >
+            <img src="/assets/icons/plus-circle.svg" alt="Increase Amount" />
+          </div>
         </div>
-      </div>
-    </article>
+
+        <button
+          className="product__add"
+          onClick={() => {
+            addToCart(product, productAmount);
+            setProductAmount(1);
+          }}
+        >
+          Add To Cart
+        </button>
+      </article>
+    </>
   );
 }
 

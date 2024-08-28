@@ -1,0 +1,28 @@
+@use "utilities";
+
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+.text {
+  font-style: normal;
+  line-height: 1.6;
+
+  &--standard {
+    font-size: 1.2rem;
+
+    @media (min-width: 768px) {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.heading {
+  &--h1 {
+    font-size: 2rem;
+
+    @include utilities.breakpoint(md) {
+      font-size: 4rem;
+    }
+  }
+}

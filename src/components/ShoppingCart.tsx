@@ -1,38 +1,20 @@
-import ProductType from "../types/Product";
-import "../style/shoppingcart.css";
-import { useState } from "react";
-
-interface ShoppingCartProps {
-  shoppingCart: ProductType[];
-}
-
-function ShoppingCart({ shoppingCart }: ShoppingCartProps) {
-  const [showShoppingCart, setShowShoppingCart] = useState<boolean>(false);
-
-  const shoppingCartListItems = shoppingCart.map((product) => (
-    <li className="shoppingcart__list__item" key={product.id}>
-      {product.name} ({product.amountOrdered})
-    </li>
-  ));
-
+function ShoppingCart() {
   return (
     <>
-      <div
-        className="shoppingcart"
-        onClick={() => setShowShoppingCart((prevShow) => !prevShow)}
-      >
-        <div className="shoppingcart__image">
-          <img src="/icons/shopping-cart.svg" alt="" />
-          <span>{shoppingCartListItems.length}</span>
+      <div className="cart">
+        <div className="cart__close">
+          <img src="/assets/icons/x-circle.svg" alt="Close" />
         </div>
-      </div>
+        <h3>Shopping Cart</h3>
 
-      <div
-        className={`shohppingcart__overview ${
-          showShoppingCart ? "shohppingcart__overview--show" : ""
-        }`}
-      >
-        <ul className="shoppingcart__list">{shoppingCartListItems}</ul>
+        <ul className="cart__products">
+          <li className="cart__product">
+            Product Name
+            <img src="/assets/icons/minus-circle-dark.svg" alt="Remove" />
+          </li>
+        </ul>
+
+        <div className="cart__price">CHF 280</div>
       </div>
     </>
   );

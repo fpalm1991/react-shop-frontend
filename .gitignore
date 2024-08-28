@@ -26,3 +26,4 @@ dist-ssr
 # Public images
 public/products/**
 public/icons/**
+public/assets/**
