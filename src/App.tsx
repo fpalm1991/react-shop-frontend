@@ -43,6 +43,23 @@ const products: ProductType[] = [
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState<ProductType[]>([]);
+  const [showShoppingCart, setShowShoppingCart] = useState(false);
+
+  const handleRemoveProductFromShoppingCart = (productId: number) => {
+    setShoppingCart((prevShoppingCart) =>
+      prevShoppingCart.filter((product) => product.id !== productId)
+    );
+  };
+
+  /*
+  useEffect(() => {
+    if (showShoppingCart === true) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  });
+  */
 
   const handleProductToCart = (product: ProductType, amount: number) => {
     setShoppingCart((prevCart) => {
@@ -71,34 +88,41 @@ function App() {
     />
   ));
 
-  const shoppingCartElement: JSX.Element[] = shoppingCart.map((product) => (
-    <li key={product.id}>
-      {product.name} ({product.amountOrdered})
-    </li>
-  ));
-
   return (
     <>
+      <header className="header">
+        <div className="header__logo">
+          <img src="/assets/icons/coffee.svg" alt="Logo" />
+        </div>
+
+        <div className="header__search">
+          <input type="text" />
+        </div>
+
+        <div
+          className="header__cart"
+          onClick={() => setShowShoppingCart((currState) => !currState)}
+        >
+          <img src="/assets/icons/shopping-cart.svg" alt="Shopping Cart" />
+          <span
+            className={`header__cart__amount ${
+              shoppingCart.length > 0 ? "header__cart__amount--show" : ""
+            }`}
+          >
+            {shoppingCart.length}
+          </span>
+        </div>
+      </header>
+
+      <ShoppingCart
+        products={shoppingCart}
+        displayShoppingCart={showShoppingCart}
+        onCloseShoppingCart={() => setShowShoppingCart(false)}
+        onRemoveFromShoppingCart={handleRemoveProductFromShoppingCart}
+      />
+
       <div className="container">
-        <header className="header">
-          <div className="header__logo">
-            <img src="/assets/icons/coffee.svg" alt="Logo" />
-          </div>
-
-          <div className="header__search">
-            <input type="text" />
-          </div>
-
-          <div className="header__cart header__cart--active">
-            <img src="/assets/icons/shopping-cart.svg" alt="Shopping Cart" />
-          </div>
-        </header>
-
-        <main className="text text--standard">
-          <ShoppingCart />
-
-          <ul>{shoppingCartElement}</ul>
-
+        <main className="main text text--standard">
           <section className="section__products">
             <h1 className="heading heading--h1">Discover Our Products</h1>
 

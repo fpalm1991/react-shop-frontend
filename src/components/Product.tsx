@@ -29,7 +29,7 @@ function Product({ product, addToCart }: ProductProps) {
             className="product__amount__sub"
             onClick={() => {
               setProductAmount((currAmount) =>
-                currAmount < 1 ? 0 : currAmount - 1
+                currAmount <= 1 ? 1 : currAmount - 1
               );
             }}
           >

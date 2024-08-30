@@ -9,11 +9,22 @@ body {
   color: variables.$font-color--main;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4rem;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.6);
+  padding: 1rem 2rem;
+
+  @include utilities.breakpoint(md) {
+    padding: 2rem 8rem;
+  }
 
   &__logo {
     width: 40px;
@@ -24,6 +35,8 @@ body {
   }
 
   &__cart {
+    position: relative;
+
     img {
       width: 30px;
 
@@ -35,24 +48,40 @@ body {
     &:hover {
       cursor: pointer;
     }
+
+    &__amount {
+      background-color: green;
+      position: absolute;
+      bottom: -0.4rem;
+      right: -0.4rem;
+      width: 1rem;
+      height: 1rem;
+      padding: 12px;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      align-items: center;
+      justify-content: center;
+      display: none;
+
+      &--show {
+        display: flex;
+      }
+    }
   }
 
   &__cart {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(119, 119, 228);
 
-    &--active {
-      background-color: #fff;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: rgb(119, 119, 228);
-
-      @include utilities.breakpoint(md) {
-        width: 60px;
-        height: 60px;
-      }
+    @include utilities.breakpoint(md) {
+      width: 60px;
+      height: 60px;
     }
   }
 
@@ -137,11 +166,12 @@ body {
 }
 
 .cart {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   height: 100%;
   padding: 3rem;
+  width: 40vw;
   background-color: azure;
   color: variables.$font-color--dark;
   display: none;
@@ -158,6 +188,12 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 2rem;
+
+    img {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &__products {
@@ -169,6 +205,12 @@ body {
     display: flex;
     align-items: center;
     column-gap: 1rem;
+
+    &__remove {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &__price {
