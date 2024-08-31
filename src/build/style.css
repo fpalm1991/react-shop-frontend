@@ -69,9 +69,8 @@ body {
 }
 
 body {
-  background: linear-gradient(60deg, rgba(0, 0, 0, 0.9), rgb(0, 0, 0));
   min-height: 100vh;
-  color: #f3f3f3;
+  color: #1a1a1a;
 }
 
 .no-scroll {
@@ -84,7 +83,7 @@ body {
   justify-content: space-between;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.6);
+  box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.6);
   padding: 1rem 2rem;
 }
 @media (min-width: 768px) {
@@ -92,30 +91,31 @@ body {
     padding: 2rem 8rem;
   }
 }
-.header__logo {
-  width: 40px;
+.header__logo img {
+  width: 2rem;
 }
 @media (min-width: 768px) {
-  .header__logo {
-    width: 60px;
+  .header__logo img {
+    width: 3.2rem;
   }
 }
 .header__cart {
   position: relative;
 }
 .header__cart img {
-  width: 30px;
+  width: 1.6rem;
 }
 @media (min-width: 768px) {
   .header__cart img {
-    width: 30px;
+    width: 1.8rem;
   }
 }
 .header__cart:hover {
   cursor: pointer;
 }
 .header__cart__amount {
-  background-color: green;
+  background-color: rgba(8, 8, 171, 0.797);
+  color: rgb(232, 232, 232);
   position: absolute;
   bottom: -0.4rem;
   right: -0.4rem;
@@ -139,7 +139,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: rgb(119, 119, 228);
+  background-color: rgb(227, 157, 27);
 }
 @media (min-width: 768px) {
   .header__cart {
@@ -177,9 +177,11 @@ body {
 }
 
 .product {
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(21, 21, 21, 0.2);
   border-radius: 8px;
   padding: 1.6rem 1.2rem;
+  opacity: 1;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 .product__image img {
   width: 100%;
@@ -208,7 +210,7 @@ body {
 .product__add {
   border: none;
   padding: 12px 18px;
-  background-color: rgb(119, 119, 228);
+  background-color: rgb(227, 157, 27);
   border-radius: 4px;
   font-size: 1.2rem;
   width: 100%;
@@ -216,25 +218,36 @@ body {
 .product__add:hover {
   cursor: pointer;
 }
+.product--fade-out {
+  opacity: 0;
+  transform: translateY(10px);
+}
 
 .cart {
   position: fixed;
   top: 0;
   right: 0;
   height: 100%;
-  padding: 3rem;
-  width: 40vw;
-  background-color: azure;
-  color: rgb(30, 30, 30);
-  display: none;
-}
-.cart--show {
-  display: block;
+  padding: 2rem;
+  width: 80vw;
+  background-color: rgb(215, 253, 76);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+  font-size: 1rem;
+  line-height: 2.8;
 }
 @media (min-width: 768px) {
   .cart {
     padding: 4rem;
+    width: 40vw;
+    font-size: 1.4rem;
+    line-height: 2.2;
   }
+}
+.cart--show {
+  opacity: 1;
+  visibility: visible;
 }
 .cart__close {
   display: flex;

@@ -4,14 +4,15 @@ import ProductType from "../types/Product";
 interface ProductProps {
   product: ProductType;
   addToCart: (product: ProductType, amount: number) => void;
+  fadeOut: boolean;
 }
 
-function Product({ product, addToCart }: ProductProps) {
+function Product({ product, addToCart, fadeOut }: ProductProps) {
   const [productAmount, setProductAmount] = useState(1);
 
   return (
     <>
-      <article className="product">
+      <article className={`product ${fadeOut ? "product--fade-out" : ""}`}>
         <div className="product__image">
           <img
             className="product__image"

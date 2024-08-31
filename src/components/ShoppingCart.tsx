@@ -18,7 +18,7 @@ function ShoppingCart({
       {product.name} ({product.amountOrdered})
       <img
         className="cart__product__remove"
-        src="/assets/icons/minus-circle-dark.svg"
+        src="/assets/icons/minus-circle.svg"
         alt="Remove"
         onClick={() => onRemoveFromShoppingCart(product.id)}
       />
@@ -36,11 +36,7 @@ function ShoppingCart({
 
   return (
     <>
-      <div
-        className={`cart text text--standard ${
-          displayShoppingCart ? "cart--show" : ""
-        }`}
-      >
+      <div className={`cart ${displayShoppingCart ? "cart--show" : ""}`}>
         <div className="cart__close">
           <img
             src="/assets/icons/x-circle.svg"

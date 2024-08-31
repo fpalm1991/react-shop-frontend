@@ -3,10 +3,10 @@ import Product from "./components/Product";
 import ProductType from "./types/Product";
 import { useState } from "react";
 
-const products: ProductType[] = [
+const productsArray: ProductType[] = [
   {
     id: 1,
-    name: "Dreamer Cup",
+    name: "Fantastic Coffee Cup",
     price: 42.5,
     sale: false,
     image: "/products/cup-1.jpg",
@@ -44,22 +44,14 @@ const products: ProductType[] = [
 function App() {
   const [shoppingCart, setShoppingCart] = useState<ProductType[]>([]);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
+  const [search, setSearch] = useState<string>("");
+  const [fadeOut, setFadeOut] = useState(false);
 
   const handleRemoveProductFromShoppingCart = (productId: number) => {
     setShoppingCart((prevShoppingCart) =>
       prevShoppingCart.filter((product) => product.id !== productId)
     );
   };
-
-  /*
-  useEffect(() => {
-    if (showShoppingCart === true) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  });
-  */
 
   const handleProductToCart = (product: ProductType, amount: number) => {
     setShoppingCart((prevCart) => {
@@ -80,13 +72,41 @@ function App() {
     });
   };
 
-  const productsElement: JSX.Element[] = products.map((product) => (
+  const filteredProducts =
+    search.length > 2
+      ? productsArray.filter((product) =>
+          product.name
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim())
+        )
+      : productsArray;
+
+  const productsElement: JSX.Element[] = filteredProducts.map((product) => (
     <Product
       product={product}
       key={product.id}
       addToCart={handleProductToCart}
+      fadeOut={fadeOut}
     />
   ));
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = e.target.value;
+    setSearch(newSearchTerm);
+
+    // Only start effect if the search term is longer than 2 and if there
+    // are still products to filter (more than 1 products is shown)
+    if (newSearchTerm.length > 2 && productsElement.length > 1) {
+      setFadeOut(true);
+
+      setTimeout(() => {
+        setFadeOut(false);
+      }, 500);
+    } else {
+      setFadeOut(false);
+    }
+  };
 
   return (
     <>
@@ -96,7 +116,7 @@ function App() {
         </div>
 
         <div className="header__search">
-          <input type="text" />
+          <input type="text" onChange={handleSearchChange} />
         </div>
 
         <div
