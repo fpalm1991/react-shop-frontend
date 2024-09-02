@@ -43,9 +43,9 @@ const productsArray: ProductType[] = [
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState<ProductType[]>([]);
-  const [showShoppingCart, setShowShoppingCart] = useState(false);
+  const [showShoppingCart, setShowShoppingCart] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
-  const [fadeOut, setFadeOut] = useState(false);
+  const [fadeOut, setFadeOut] = useState<boolean>(false);
 
   const shoppingCartAmount = shoppingCart
   .map((product) => product.amountOrdered ?? 0)
@@ -102,7 +102,7 @@ function App() {
     setSearch(newSearchTerm);
 
     // Only start effect if the search term is longer than 2 and if there
-    // are still products to filter (more than 1 products is shown)
+    // are still products to filter (more than 1 product is shown)
     if (newSearchTerm.length > 2 && productsElement.length > 1) {
       setFadeOut(true);
 
