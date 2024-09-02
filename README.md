@@ -8,7 +8,7 @@ This project aims to help me get hands-on experience with React and TypeScript:
 
 - React: Building UI components and managing state.
 - TypeScript: Using types to catch errors early and ensure code quality.
-- State Management: Handling state with React's useState and useEffect hooks.
+- State Management: Handling state with React's hooks.
 - Component Design: Structuring the application into reusable and maintainable components.
 - Props and State: Passing data between components and handling local state.
 
