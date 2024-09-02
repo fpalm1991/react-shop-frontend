@@ -1,6 +1,6 @@
 # Learning Project React + TypeScript
 
-This is a learning project where I am exploring React and TypeScript by building a simple e-commerce frontend. The project simulates a basic online store where users can browse products, add them to a shopping cart, and manage their orders.
+This is a learning project where I am exploring React and TypeScript by building a simple e-commerce frontend. The project simulates a basic online store where users can browse products, add them to a shopping cart, and manage their orders. An example implementation of the static build can be found [here](https://dev.felix-palm.ch/react/shop-frontend/).
 
 ## Project Overview
 
