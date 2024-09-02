@@ -47,6 +47,10 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const [fadeOut, setFadeOut] = useState(false);
 
+  const shoppingCartAmount = shoppingCart
+  .map((product) => product.amountOrdered ?? 0)
+  .reduce((acc, curr) => acc + curr, 0)
+
   const handleRemoveProductFromShoppingCart = (productId: number) => {
     setShoppingCart((prevShoppingCart) =>
       prevShoppingCart.filter((product) => product.id !== productId)
@@ -73,6 +77,8 @@ function App() {
   };
 
   const filteredProducts =
+
+    // Start searching after user entered at least 2 characters into search bar. 
     search.length > 2
       ? productsArray.filter((product) =>
           product.name
@@ -129,7 +135,7 @@ function App() {
               shoppingCart.length > 0 ? "header__cart__amount--show" : ""
             }`}
           >
-            {shoppingCart.length}
+            {shoppingCartAmount}
           </span>
         </div>
       </header>
